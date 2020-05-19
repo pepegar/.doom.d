@@ -88,10 +88,12 @@
         '(("d" "default" plain (function org-roam--capture-get-point)
            "%?"
            :file-name "${slug}"
-           :head (s-join "\n" '("#+SETUPFILE:./hugo_setup.org"
-                                "#+HUGO_SECTION: zettels"
-                                "#+HUGO_SLUG: ${slug}"
-                                "#+TITLE: ${title}"))
+           :head "#+SETUPFILE:./hugo_setup.org
+#+HUGO_SECTION: zettels
+#+HUGO_SLUG: ${slug}
+#+TITLE: ${title}
+
+"
            :unnarrowed t)
           )))
 
@@ -196,3 +198,13 @@
    org-noter-hide-other nil
    ;; Everything is relative to the main notes file
    org-noter-notes-search-path (list braindump-path)))
+
+(use-package! direnv
+  :config
+  (setq
+   direnv-always-show-summary nil))
+
+(add-hook 'pdf-tools-enabled-hook 'pdf-view-midnight-minor-mode)
+
+(use-package! helm
+  :bind* ("C-x C-b" . helm-buffers-list))
